@@ -73,27 +73,28 @@ heroImg.onload = function() {
   let speed = 2;
   let score=0;
   let greenyFrequency = 0.02;
-  let planktonFrequency=0.007;
-  let lives=3;
+  //let planktonFrequency=0.007;
+  //let lives=3;
 
  const obstacleImg = new Image();
   obstacleImg.src = "images/greeny.png";
-  let obstacleX = canvas.width;
-  let obstacleY = Math.floor(Math.random() * (canvas.height - obstacleImg.height));
+  //let obstacleX = canvas.width;
+  //let obstacleY = Math.floor(Math.random() * (canvas.height - obstacleImg.height));
  
-  const planktonImg = new Image();
-planktonImg.src = 'images/spikyT.png';
+  //const planktonImg = new Image();
+//planktonImg.src = 'images/spikyT.png';
 
 
   const obstacles = [];
-  const enemies = [];
+  //const enemies = [];
 
-  const woshellImg = new Image();
-  woshellImg.src = "images/woshell.png";
+  //const woshellImg = new Image();
+  //woshellImg.src = "images/woshell.png";
 
-  const livesImg = new Image();
-  livesImg.src = "images/lives.png";
+  //const livesImg = new Image();
+  //livesImg.src = "images/lives.png";
 
+ 
   
 function createObstacle() {
   const obstacle = {
@@ -102,14 +103,15 @@ function createObstacle() {
   };
   obstacles.push(obstacle);
 }
-function createPlankton() {
-    const plankton = {
-        x: canvas.width,
-        y: Math.floor(Math.random() * (canvas.height - planktonImg.height/2)),
-     speed:3,
-    };
-    enemies.push(plankton);
-  }
+/*function createPlankton() {
+  
+  const plankton = {
+    x: canvas.width,
+    y: Math.floor(Math.random() * (canvas.height - planktonImg.height)),
+    speed: 2,
+  };
+  enemies.push(plankton);
+}  */
 
 function drawObstacles() {
   for (let i = 0; i < obstacles.length; i++) {
@@ -118,47 +120,40 @@ function drawObstacles() {
   }
 }
 
-function drawEnemies() {
-    for (let i = 0; i < enemies.length; i++) {
-      const enemy = enemies[i];
-      ctx.drawImage(planktonImg, enemy.x, enemy.y);
-    }
+/*function drawEnemies() {
+  for (let i = 0; i < enemies.length; i++) {
+    const enemy = enemies[i];
+    ctx.drawImage(planktonImg, enemy.x, enemy.y);
   }
+}*/
 
 function updateObstacles() {
-
- 
-
-    for (let i = 0; i < obstacles.length; i++) {
-      const obstacle = obstacles[i];
-      obstacle.x -= 5;
-      if (obstacle.x < -obstacleImg.width) {
+  for (let i = 0; i < obstacles.length; i++) {
+    const obstacle = obstacles[i];
+    obstacle.x -= 5;
+    if (obstacle.x < -obstacleImg.width) {
+      obstacles.splice(i, 1);
+      i--;
+    } else {
+      // Check collision with hero
+      const heroRadius = 75;
+      const greenyRadius = 25;
+      const dx = heroX + heroRadius - (obstacle.x + greenyRadius);
+      const dy = heroY + heroRadius - (obstacle.y + greenyRadius);
+      const distance = Math.sqrt(dx * dx + dy * dy);
+      if (distance < heroRadius + greenyRadius) {
         obstacles.splice(i, 1);
         i--;
-      } else {
-        // Check collision with hero
-        const heroRadius = 75;
-        const greenyRadius = 25;
-        const dx = heroX + heroRadius - (obstacle.x + greenyRadius);
-        const dy = heroY + heroRadius - (obstacle.y + greenyRadius);
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        if (distance < heroRadius + greenyRadius) {
-          obstacles.splice(i, 1);
-          i--;
-          score += 10;
-        }
+        score += 10;
       }
     }
-    if (greenyFrequency > Math.random()) {
-      createObstacle();
-    }
   }
+  if (greenyFrequency > Math.random()) {
+    createObstacle();
+  }
+}
 
-  let isTransformed = false;
-  let initialScore = 0 ;
- 
-  
- function updateEnemies() {
+/*function updateEnemies() {
   for (let i = 0; i < enemies.length; i++) {
     const enemy = enemies[i];
     enemy.x -= enemy.speed;
@@ -170,14 +165,14 @@ function updateObstacles() {
       const heroRadius = 75;
       const enemyRadius = 75;
       const dx = heroX + heroRadius - (enemy.x + enemyRadius);
-      const dy = heroY + heroRadius - (enemy.y + enemyRadius);
+      let dy = heroY + heroRadius - (enemy.y + enemyRadius);
       const distance = Math.sqrt(dx * dx + dy * dy);
       const maxDy = canvas.height - heroRadius - enemyRadius;
-if (dy > maxDy) {
-  dy = maxDy;
-} else if (dy < -maxDy) {
-  dy = -maxDy;
-}
+      if (dy > maxDy) {
+        dy = maxDy;
+      } else if (dy < -maxDy) {
+        dy = -maxDy;
+      }
       if (distance < heroRadius + enemyRadius) {
         lives--;
         score -= 5;
@@ -185,10 +180,6 @@ if (dy > maxDy) {
           isGameOver = true;
           ctx.fillStyle = "black";
           ctx.fillRect(0, 0, canvas.width, canvas.height);
-          ctx.font = "25px Arial";
-          ctx.fillStyle = "white";
-          ctx.textAlign = "center";
-          ctx.fillText(`Game Over! Your score is ${score}`, canvas.width/2, canvas.height/2);
           return;
         } else if (lives === 1) {
           alert("One life left");
@@ -197,23 +188,30 @@ if (dy > maxDy) {
         }
         updateLives();
         enemies.splice(i, 1);
-        i--;
+        continue;
       }
+      enemy.y += dy * 0.07;
+      if (Math.random() < 0.005) {
+        enemy.speed *= -1;
+        dy = dy * -1;
+      }
+      ctx.drawImage(planktonImg, enemy.x, enemy.y);
     }
   }
-
   if (planktonFrequency > Math.random()) {
     createPlankton();
   }
 }
+*/
 
+  
   
   
   function drawHero() {
     ctx.drawImage(heroImg, heroX, heroY, 175, 175);
   }
   
-  function drawLives() {
+  /*function drawLives() {
     
     context.fillText("x " + lives, canvas.width - 95, 40);
   }
@@ -255,8 +253,7 @@ if (dy > maxDy) {
     drawLives();
     
   }
-  
-  
+
   
  function drawLives() {
     context.drawImage(livesImg, canvas.width - 130, 20, 25, 25);
@@ -269,7 +266,7 @@ if (dy > maxDy) {
 
     }
   }
-         
+    */     
   function updateGame() {
     
     // Clear canvas
@@ -286,13 +283,13 @@ if (dy > maxDy) {
 
     updateObstacles();
 
-    drawEnemies();
+    //drawEnemies();
 
-    updateEnemies();
+    //updateEnemies();
 
-    drawLives();
+    //drawLives();
     
-    updateLives();
+    //updateLives();
     
     
     
@@ -358,5 +355,4 @@ context.font = "bold 24px Arial";
   });
 
   // Start game loop
-  requestAnimationFrame(updateGame);
-};
+  requestAnimationFrame(updateGame)}
