@@ -1,4 +1,4 @@
-# heroSnail The objective of the game is to control the snail and make it eat as many leaves as possible while avoiding obstacles.
+# HeroSnail-OBJECTIVE The objective of the game is to control the snail and make it eat as many leaves as possible while avoiding obstacles.
         Use the up arrow key to make the snail go up.
         Use the down arrow key to make the snail come down
         Press the "p" key to pause the game.
