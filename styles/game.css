@@ -9,7 +9,36 @@ body {
     object-fit: cover;
   }
   
+  /* Position the game container in the center of the page */
+  #game-container {
+    display: flex;
+  }
   
+  #game-canvas {
+    flex: 1;
+  }
+
+#instructions-container {
+  display: inline-block;
+  margin-left: 50px;
+  vertical-align: top;
+  max-width: 400px;
+}
+
+/* Style the instructions */
+.instructions-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.instruction-container p {
+  font-size: 18px;
+  line-height: 1.5;
+  margin: 10px 0;
+  text-align: justify;
+}
+
 
   
 

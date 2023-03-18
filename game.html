@@ -8,21 +8,22 @@
   </head>
   <body style="background-image: url('images/sky.png');">
     <div class="title-container">
-      <h1 class="title">SNAIL LIFE</h1>
+      <h1 class="title">SNAIL LIFE  <br><h4> <p>The objective of the game is to control the snail and make it eat as many leaves as possible while avoiding obstacles.</p>
+       <p> Use the up arrow key to make the snail go up.
+        <p>Use the down arrow key to make the snail come down.</p>
+       <p> Press the "p" key to pause the game.</p>
+       <p>Press the "m" key to mute/unmute the sound.</p>
+        Eat green leaves that appear on the screen. Each leaf eaten will add to the snail's score 10. 
+        Pay attention to the upcoming obstacles(brown leaves) so you can adjust the snail's position accordingly. Try to collect as many leaves as possible to increase your score.Good luck and have fun playing the snail game!</p></h4><br></h1>
       <div class="button-container">
         <button class="button" onclick="startGame()">Start</button>
         <button class="button">Instructions</button>
-        <button class="button">About</button>
-        <button class="button">Highscore</button>
       </div>
     </div>
-    <div class="background-image"></div>
- 
     
-
-    <canvas id="game-canvas" style="display: none;"></canvas>
-    
-    <button id="restart-btn">Restart</button>
+    <div id="game-container">
+      <canvas id="game-canvas" style="display: none;"></canvas>
+     
     </div>
 
     

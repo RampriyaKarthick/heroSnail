@@ -27,10 +27,22 @@ function startGame() {
       }
     }
   });
+  
+  // Pause the game and show instructions
+  isPaused = true;
+  togglePause();
+  document.getElementById('instructions-container').style.display = 'block';
+  
+  // Set a timer to resume the game after 5 minutes
+  setTimeout(() => {
+    document.getElementById('instructions-container').style.display = 'none';
+    togglePause();
+  }, 6000000); // 5 minutes in milliseconds
 
   // Start the game
   initialize();
 }
+
 
 
 const canvas = document.getElementById("game-canvas");
@@ -92,6 +104,17 @@ let scoreThresholds = [0, 50, 100, 200, 400]; // Score thresholds for each level
 let currentScoreThreshold = scoreThresholds[level];
 
 const gameOverSound = new Audio("music/planktonCollision.wav");
+
+function togglePause() {
+  if (isPaused) {
+    requestAnimationFrame(gameLoop);
+    isPaused = false;
+  } else {
+    cancelAnimationFrame(gameLoopID);
+    isPaused = true;
+  }
+}
+
 
 
 
